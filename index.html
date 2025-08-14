@@ -275,9 +275,17 @@
             <p>2. 購入金額、モノクロ単価、カラー単価、最低基本料金を入力すると自動で5年間の総費用が計算されます</p>
             <p>3. 最下段の「5年目総額（最終）」が5年間の総コストです</p>
             <p>4. この金額を比較して最適な業者を選択してください</p>
+            <p>5. 入力完了後、下のボタンでExcelファイルとしてダウンロードできます</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <button onclick="downloadExcel()" style="background-color: #27ae60; color: white; padding: 12px 24px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                📊 Excelファイルでダウンロード
+            </button>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
         function calculateCost(column) {
             const table = document.getElementById('comparisonTable');
@@ -343,6 +351,81 @@
             document.getElementById('year3Total' + column).textContent = '¥' + year3Total.toLocaleString();
             document.getElementById('year4Total' + column).textContent = '¥' + year4Total.toLocaleString();
             document.getElementById('year5Total' + column).textContent = '¥' + year5Total.toLocaleString();
+        }
+        
+        function downloadExcel() {
+            // データを収集
+            const data = [];
+            const table = document.getElementById('comparisonTable');
+            const rows = table.getElementsByTagName('tr');
+            
+            // ヘッダー行を作成
+            const headerRow = [];
+            const headerCells = rows[0].getElementsByTagName('th');
+            for (let i = 0; i < headerCells.length; i++) {
+                headerRow.push(headerCells[i].textContent.replace(/\n/g, ' ').trim());
+            }
+            data.push(headerRow);
+            
+            // データ行を処理
+            for (let i = 1; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                if (cells.length > 0) {
+                    const row = [];
+                    
+                    for (let j = 0; j < cells.length; j++) {
+                        const cell = cells[j];
+                        
+                        // 入力フィールドがある場合
+                        const input = cell.getElementsByTagName('input')[0];
+                        if (input) {
+                            row.push(input.value || '');
+                        } else {
+                            // 通常のテキストまたは計算結果
+                            let cellText = cell.textContent.trim();
+                            // ¥マークを除去して数値として保存
+                            if (cellText.startsWith('¥')) {
+                                cellText = cellText.replace('¥', '').replace(/,/g, '');
+                                if (!isNaN(cellText) && cellText !== '') {
+                                    row.push(parseFloat(cellText));
+                                } else {
+                                    row.push(cellText);
+                                }
+                            } else {
+                                row.push(cellText);
+                            }
+                        }
+                    }
+                    data.push(row);
+                }
+            }
+            
+            // Excelワークブックを作成
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            
+            // 列幅を調整
+            const colWidths = [
+                { wch: 25 }, // 項目列
+                { wch: 20 }, // 業者A
+                { wch: 20 }, // 業者B
+                { wch: 20 }, // 業者C
+                { wch: 20 }  // 業者D
+            ];
+            ws['!cols'] = colWidths;
+            
+            // ワークシートをワークブックに追加
+            XLSX.utils.book_append_sheet(wb, ws, "複合機比較表");
+            
+            // ファイル名を生成（現在の日付を含む）
+            const today = new Date();
+            const dateStr = today.getFullYear() + '-' + 
+                          String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                          String(today.getDate()).padStart(2, '0');
+            const filename = `複合機比較表_${dateStr}.xlsx`;
+            
+            // ダウンロードを実行
+            XLSX.writeFile(wb, filename);
         }
     </script>
 </body>
