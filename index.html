@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>複合機相見積もり比較表</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        .category-header {
+            background-color: #ecf0f1;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .sample-data {
+            background-color: #e8f5e8;
+        }
+        .input-field {
+            width: 90%;
+            padding: 4px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .cost-calculation {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid #3498db;
+        }
+        .total-cost {
+            font-weight: bold;
+            font-size: 16px;
+            color: #27ae60;
+        }
+        .note {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            color: #856404;
+        }
+        .calculation-row {
+            background-color: #f1c40f;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>複合機相見積もり比較表</h1>
+        
+        <table id="comparisonTable">
+            <thead>
+                <tr>
+                    <th style="width: 200px;">項目</th>
+                    <th style="width: 200px;">業者A<br>（オフィス桃太郎）</th>
+                    <th style="width: 200px;">業者B</th>
+                    <th style="width: 200px;">業者C</th>
+                    <th style="width: 200px;">業者D</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="category-header">
+                    <td colspan="5">基本情報</td>
+                </tr>
+                <tr>
+                    <td>業者名</td>
+                    <td class="sample-data">オフィス桃太郎</td>
+                    <td><input type="text" class="input-field" placeholder="業者名を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="業者名を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="業者名を入力"></td>
+                </tr>
+                <tr>
+                    <td>担当者名</td>
+                    <td class="sample-data">椿様</td>
+                    <td><input type="text" class="input-field" placeholder="担当者名を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="担当者名を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="担当者名を入力"></td>
+                </tr>
+                <tr class="category-header">
+                    <td colspan="5">機器仕様</td>
+                </tr>
+                <tr>
+                    <td>機種名</td>
+                    <td class="sample-data">京セラ製カラー複合機本体</td>
+                    <td><input type="text" class="input-field" placeholder="機種名を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="機種名を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="機種名を入力"></td>
+                </tr>
+                <tr>
+                    <td>型番</td>
+                    <td class="sample-data">TASKalfa3554ci</td>
+                    <td><input type="text" class="input-field" placeholder="型番を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="型番を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="型番を入力"></td>
+                </tr>
+                <tr>
+                    <td>印刷速度</td>
+                    <td class="sample-data">35枚/分</td>
+                    <td><input type="text" class="input-field" placeholder="枚/分"></td>
+                    <td><input type="text" class="input-field" placeholder="枚/分"></td>
+                    <td><input type="text" class="input-field" placeholder="枚/分"></td>
+                </tr>
+                <tr>
+                    <td>サイズ</td>
+                    <td class="sample-data">A4～A3</td>
+                    <td><input type="text" class="input-field" placeholder="対応サイズ"></td>
+                    <td><input type="text" class="input-field" placeholder="対応サイズ"></td>
+                    <td><input type="text" class="input-field" placeholder="対応サイズ"></td>
+                </tr>
+                <tr>
+                    <td>両面印刷</td>
+                    <td class="sample-data">〇</td>
+                    <td><input type="text" class="input-field" placeholder="〇/×"></td>
+                    <td><input type="text" class="input-field" placeholder="〇/×"></td>
+                    <td><input type="text" class="input-field" placeholder="〇/×"></td>
+                </tr>
+                <tr class="category-header">
+                    <td colspan="5">費用</td>
+                </tr>
+                <tr>
+                    <td>購入金額（税込）</td>
+                    <td class="sample-data">¥495,000</td>
+                    <td><input type="number" class="input-field" placeholder="金額（円）" onchange="calculateCost(2)"></td>
+                    <td><input type="number" class="input-field" placeholder="金額（円）" onchange="calculateCost(3)"></td>
+                    <td><input type="number" class="input-field" placeholder="金額（円）" onchange="calculateCost(4)"></td>
+                </tr>
+                <tr>
+                    <td>モノクロ単価</td>
+                    <td class="sample-data">0.6円/枚</td>
+                    <td><input type="number" step="0.1" class="input-field" placeholder="円/枚" onchange="calculateCost(2)"></td>
+                    <td><input type="number" step="0.1" class="input-field" placeholder="円/枚" onchange="calculateCost(3)"></td>
+                    <td><input type="number" step="0.1" class="input-field" placeholder="円/枚" onchange="calculateCost(4)"></td>
+                </tr>
+                <tr>
+                    <td>カラー単価</td>
+                    <td class="sample-data">6.0円/枚</td>
+                    <td><input type="number" step="0.1" class="input-field" placeholder="円/枚" onchange="calculateCost(2)"></td>
+                    <td><input type="number" step="0.1" class="input-field" placeholder="円/枚" onchange="calculateCost(3)"></td>
+                    <td><input type="number" step="0.1" class="input-field" placeholder="円/枚" onchange="calculateCost(4)"></td>
+                </tr>
+                <tr>
+                    <td>最低基本料金</td>
+                    <td class="sample-data">¥1,100</td>
+                    <td><input type="number" class="input-field" placeholder="円" onchange="calculateCost(2)"></td>
+                    <td><input type="number" class="input-field" placeholder="円" onchange="calculateCost(3)"></td>
+                    <td><input type="number" class="input-field" placeholder="円" onchange="calculateCost(4)"></td>
+                </tr>
+                <tr class="category-header">
+                    <td colspan="5">月間コスト計算（モノクロ6,000枚・カラー600枚）</td>
+                </tr>
+                <tr class="calculation-row">
+                    <td>月間印刷コスト</td>
+                    <td class="sample-data">¥7,200</td>
+                    <td id="monthlyCost2">-</td>
+                    <td id="monthlyCost3">-</td>
+                    <td id="monthlyCost4">-</td>
+                </tr>
+                <tr class="calculation-row">
+                    <td>年間印刷コスト</td>
+                    <td class="sample-data">¥86,400</td>
+                    <td id="yearlyCost2">-</td>
+                    <td id="yearlyCost3">-</td>
+                    <td id="yearlyCost4">-</td>
+                </tr>
+                <tr class="category-header">
+                    <td colspan="5">5年間総費用</td>
+                </tr>
+                <tr class="total-cost">
+                    <td>1年目総額</td>
+                    <td class="sample-data">¥581,400</td>
+                    <td id="year1Total2">-</td>
+                    <td id="year1Total3">-</td>
+                    <td id="year1Total4">-</td>
+                </tr>
+                <tr class="total-cost">
+                    <td>2年目総額</td>
+                    <td class="sample-data">¥667,800</td>
+                    <td id="year2Total2">-</td>
+                    <td id="year2Total3">-</td>
+                    <td id="year2Total4">-</td>
+                </tr>
+                <tr class="total-cost">
+                    <td>3年目総額</td>
+                    <td class="sample-data">¥754,200</td>
+                    <td id="year3Total2">-</td>
+                    <td id="year3Total3">-</td>
+                    <td id="year3Total4">-</td>
+                </tr>
+                <tr class="total-cost">
+                    <td>4年目総額</td>
+                    <td class="sample-data">¥840,600</td>
+                    <td id="year4Total2">-</td>
+                    <td id="year4Total3">-</td>
+                    <td id="year4Total4">-</td>
+                </tr>
+                <tr class="total-cost" style="background-color: #27ae60; color: white;">
+                    <td>5年目総額（最終）</td>
+                    <td class="sample-data" style="background-color: #27ae60; color: white;">¥927,000</td>
+                    <td id="year5Total2" style="background-color: #27ae60; color: white;">-</td>
+                    <td id="year5Total3" style="background-color: #27ae60; color: white;">-</td>
+                    <td id="year5Total4" style="background-color: #27ae60; color: white;">-</td>
+                </tr>
+                <tr class="category-header">
+                    <td colspan="5">その他情報</td>
+                </tr>
+                <tr>
+                    <td>契約から納品まで</td>
+                    <td class="sample-data">1週間程度</td>
+                    <td><input type="text" class="input-field" placeholder="期間を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="期間を入力"></td>
+                    <td><input type="text" class="input-field" placeholder="期間を入力"></td>
+                </tr>
+                <tr>
+                    <td>保証・サービス</td>
+                    <td class="sample-data">5年保証・メーカー保守・トナー代・出張費・部品代込</td>
+                    <td><input type="text" class="input-field" placeholder="保証内容"></td>
+                    <td><input type="text" class="input-field" placeholder="保証内容"></td>
+                    <td><input type="text" class="input-field" placeholder="保証内容"></td>
+                </tr>
+                <tr>
+                    <td>備考</td>
+                    <td class="sample-data">カウンター料金合計が基本料金を下回る場合に基本料金適用</td>
+                    <td><input type="text" class="input-field" placeholder="備考"></td>
+                    <td><input type="text" class="input-field" placeholder="備考"></td>
+                    <td><input type="text" class="input-field" placeholder="備考"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="note">
+            <h3>使用方法</h3>
+            <p><strong>前提条件：</strong> 月間印刷量 - モノクロ6,000枚、カラー600枚で計算</p>
+            <p>1. 各業者の情報を入力してください</p>
+            <p>2. 購入金額、モノクロ単価、カラー単価、最低基本料金を入力すると自動で5年間の総費用が計算されます</p>
+            <p>3. 最下段の「5年目総額（最終）」が5年間の総コストです</p>
+            <p>4. この金額を比較して最適な業者を選択してください</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateCost(column) {
+            const table = document.getElementById('comparisonTable');
+            const rows = table.getElementsByTagName('tr');
+            
+            // 入力値を取得
+            let purchasePrice = 0;
+            let monoPrice = 0;
+            let colorPrice = 0;
+            let minCharge = 0;
+            
+            // 各行から値を取得
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                if (cells.length > column) {
+                    const input = cells[column].getElementsByTagName('input')[0];
+                    if (input) {
+                        const rowLabel = cells[0].textContent.trim();
+                        if (rowLabel === '購入金額（税込）') {
+                            purchasePrice = parseFloat(input.value) || 0;
+                        } else if (rowLabel === 'モノクロ単価') {
+                            monoPrice = parseFloat(input.value) || 0;
+                        } else if (rowLabel === 'カラー単価') {
+                            colorPrice = parseFloat(input.value) || 0;
+                        } else if (rowLabel === '最低基本料金') {
+                            minCharge = parseFloat(input.value) || 0;
+                        }
+                    }
+                }
+            }
+            
+            // 月間コスト計算
+            const monthlyMono = monoPrice * 6000;
+            const monthlyColor = colorPrice * 600;
+            const monthlyTotal = Math.max(monthlyMono + monthlyColor, minCharge);
+            const yearlyTotal = monthlyTotal * 12;
+            
+            // 結果を表示
+            document.getElementById('monthlyCost' + column).textContent = '¥' + monthlyTotal.toLocaleString();
+            document.getElementById('yearlyCost' + column).textContent = '¥' + yearlyTotal.toLocaleString();
+            
+            // 各年の累計を計算
+            let runningTotal = purchasePrice + yearlyTotal;
+            document.getElementById('year1Total' + column).textContent = '¥' + runningTotal.toLocaleString();
+            
+            runningTotal += yearlyTotal;
+            document.getElementById('year2Total' + column).textContent = '¥' + runningTotal.toLocaleString();
+            
+            runningTotal += yearlyTotal;
+            document.getElementById('year3Total' + column).textContent = '¥' + runningTotal.toLocaleString();
+            
+            runningTotal += yearlyTotal;
+            document.getElementById('year4Total' + column).textContent = '¥' + runningTotal.toLocaleString();
+            
+            runningTotal += yearlyTotal;
+            document.getElementById('year5Total' + column).textContent = '¥' + runningTotal.toLocaleString();
+        }
+    </script>
+</body>
+</html>
