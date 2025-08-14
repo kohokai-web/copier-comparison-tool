@@ -1,0 +1,1 @@
+# copier-comparison-tool
