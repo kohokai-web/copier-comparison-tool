@@ -309,6 +309,18 @@
                 }
             }
             
+            // 入力がない場合は表示をクリア
+            if (purchasePrice === 0 && monoPrice === 0 && colorPrice === 0) {
+                document.getElementById('monthlyCost' + column).textContent = '-';
+                document.getElementById('yearlyCost' + column).textContent = '-';
+                document.getElementById('year1Total' + column).textContent = '-';
+                document.getElementById('year2Total' + column).textContent = '-';
+                document.getElementById('year3Total' + column).textContent = '-';
+                document.getElementById('year4Total' + column).textContent = '-';
+                document.getElementById('year5Total' + column).textContent = '-';
+                return;
+            }
+            
             // 月間コスト計算
             const monthlyMono = monoPrice * 6000;
             const monthlyColor = colorPrice * 600;
@@ -319,21 +331,18 @@
             document.getElementById('monthlyCost' + column).textContent = '¥' + monthlyTotal.toLocaleString();
             document.getElementById('yearlyCost' + column).textContent = '¥' + yearlyTotal.toLocaleString();
             
-            // 各年の累計を計算
-            let runningTotal = purchasePrice + yearlyTotal;
-            document.getElementById('year1Total' + column).textContent = '¥' + runningTotal.toLocaleString();
+            // 各年の累計を計算（本体価格は1年目のみ加算）
+            const year1Total = purchasePrice + yearlyTotal;
+            const year2Total = purchasePrice + (yearlyTotal * 2);
+            const year3Total = purchasePrice + (yearlyTotal * 3);
+            const year4Total = purchasePrice + (yearlyTotal * 4);
+            const year5Total = purchasePrice + (yearlyTotal * 5);
             
-            runningTotal += yearlyTotal;
-            document.getElementById('year2Total' + column).textContent = '¥' + runningTotal.toLocaleString();
-            
-            runningTotal += yearlyTotal;
-            document.getElementById('year3Total' + column).textContent = '¥' + runningTotal.toLocaleString();
-            
-            runningTotal += yearlyTotal;
-            document.getElementById('year4Total' + column).textContent = '¥' + runningTotal.toLocaleString();
-            
-            runningTotal += yearlyTotal;
-            document.getElementById('year5Total' + column).textContent = '¥' + runningTotal.toLocaleString();
+            document.getElementById('year1Total' + column).textContent = '¥' + year1Total.toLocaleString();
+            document.getElementById('year2Total' + column).textContent = '¥' + year2Total.toLocaleString();
+            document.getElementById('year3Total' + column).textContent = '¥' + year3Total.toLocaleString();
+            document.getElementById('year4Total' + column).textContent = '¥' + year4Total.toLocaleString();
+            document.getElementById('year5Total' + column).textContent = '¥' + year5Total.toLocaleString();
         }
     </script>
 </body>
